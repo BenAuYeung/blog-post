@@ -1,10 +1,9 @@
 QA Automation at Global Personals
 =================================
-
-Hi there, my name is Joe Xie and I joined the Global Personals Development Team as a developer in test in September 2013. Global have successfully started automation tests for a year before I joined and during the last ten months, we also made quite a lot progresses in test automation. So here I would like to review what we have achieved and what I have learnt about automation.
+I joined the Global Personals Development Team as a developer in test in September 2013. Global had successfully started an automation testing programme for a year before I joined. During the last ten months, we've made quite a lot further improvement to our framework as well as massively increasing our test library. So here I would like to review what we have achieved and what I have learnt about automation.
 
 ### Framework
-Our automation scripts are written in Ruby and RSpec is our test framework to write automation tests. As most of our product are web application, we also use capybara to simulate real users interact with the application. Furthermore, capybara combines with selenium driver allows us to run automation scripts with modern browsers such as Firefox, Chrome and IEs. It's worthing nothing that we don't use cucumber in our test automation. Because it could easily increase the complexity such as parsing the keywords with regular expression. Instead we create our own DSL can make the specs clean and readable.
+The tools are RSpec, Capybara and different drivers. As communicated with other testers, cucumber is a very popular tool in their automation platform. However, here at Global we don't use it. Simply because it increases the complexity of automation. Parsing the keywords could be horrible as well as writing regular expression. Just create our own DSL can make the specs. clean and readable
 
 #### Page Object
 To build our DSL, we use Page Object Pattern. The idea is to encapsulate the page's behaviours into the page object, which is good for maintaining automation and increasing code readability. Below is an example of login page object
@@ -43,7 +42,7 @@ As part of BDD, the end-to-end automation scripts are able to guarantee the corr
 We've managed to run 100+ end-to-end tests within 40 minutes in our CI system (it's all running in one virtual box, amazing!), and it's proven that CI is able to capture bugs in our day-to-day work!
 
 ### Stability
-CI is not the end of the test automation. Just like many other programmes, automation has its own difficulty. Since most of our automation scripts are end-to-end tests, there are lots of web UI tests in the scripts. As a result, we experience many intermittent issues like request timeout, page is not completely loaded, server is down etc. It will destroy the confidence of tests because you'll have no idea if it's a bug or just environmental. Therefore, we will need some techniques to help driver to to increase the stability of automation.
+Since most of our automation scripts are End-to-End tests and our product has a lot of user interfaces, there are lots of web UI tests in the test suite. As a result, we experiences many intermittent issues like request timeout, page is not completely loaded, server is down etc. These reduce the confidence of our automation tests. Therefore, we need some techniques to help the driver to deal with them in order to increase the tests stability.
 
 To handle the timeout or element not found, waiting is good solution. There are two types of wait, implicit wait and explicit wait.
 
@@ -59,6 +58,8 @@ Last but not least, the speed of automation. In the agile process, we'll need to
 The first idea is to use headless driver. Selenium is good while developing automation so you can watch it. CI doesn't really need to open a browser. We choose [poltergeist](https://github.com/teampoltergeist/poltergeist) as the headless driver, it doesn't load the entire browser and can simulate the user activities. 
 
 Another idea is to use [parallel_tests gem](https://github.com/grosser/parallel_tests). It can speed up RSpec by running parallel on multiple CPUs (or cores). With our experiment, one of our end-to-end test is taking 10 minutes normally. By using parallel_test it reduces to 8 minutes.
+
+Repeat tests in Jenkins (batching retests etc.)
 
 ### Summary
 Here in Global we've made great progress in test automation, it speeds regression test while not reducing the test confident level, really helping software development in agile approach. Please let me know if there’s anything missing or incorrect here.
