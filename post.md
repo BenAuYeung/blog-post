@@ -41,7 +41,7 @@ As the name, we tell Capybara to sleep until the element is there. The code will
 ### Speed up
 Last but not least, the speed of automation. In the agile process, we'll need to add more end-to-end tests to CI as a result of new feature required. But we don't want to slow down the CI as in theory, a CI run should finish in an hour as the agile test. We don't have unlimited budget to have thousands VMs. Therefore we need some tools / techniques to speed up.
 
-The first idea is to use headless driver. Selenium is good while developing automation so you can watch it. CI doesn't really need to open a browser. We choose [poltergeist](https://github.com/teampoltergeist/poltergeist) as the headless driver, it doesn't load the entire browser and can simulate the user activities. It increases 20% of the automation speed, amazing.
+The first idea is to use headless driver. Selenium is good while developing automation so you can watch it. CI doesn't really need to open a browser. We choose [poltergeist](https://github.com/teampoltergeist/poltergeist) as the headless driver, it doesn't load the entire browser and can simulate the user activities. It increases 20% of the automation speed.
 
 ### Repeat tests
 Because we are developing with selenium driver, it's possible that some cases are not working with poltergeist driver. In order to get the balance of speed and accuracy, we built a repeat mechanism in our automation. The automation scripts will be executed concurrently with poltergeist driver, the failing examples are recorded in `rspec.failures` file (if any), then CI will use selenium to re-run just those failing examples.
